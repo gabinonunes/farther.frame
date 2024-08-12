@@ -2,6 +2,7 @@ import { createFrames, Button } from "frames.js/next";
 import { frames as framesConfig } from "../frames";
 import { fetchMetadata } from "frames.js/next";
 import { farcasterHubContext } from "frames.js/middleware";
+import Image from 'next/image';
 
 const frames = createFrames({
   middleware: [
@@ -125,7 +126,7 @@ const handleRequest = frames(async (ctx) => {
     image: (
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#232739', padding: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
-          <img 
+          <Image 
             src={pfpUrl || defaultPfpUrl} 
             alt="Profile Picture" 
             width={100} 
@@ -153,7 +154,7 @@ const handleRequest = frames(async (ctx) => {
             <p style={{ margin: '0px 0' }}>Rank: {rank} ⭐ Tipper Score: {tipperScore !== undefined ? Number(tipperScore).toFixed(2) : 'N/A'}</p>
             <p style={{ margin: '0px 0' }}>Eligible Tippers: {eligibleTippers} ⭐ Tip Minimum: {tipMinimum}✨</p>
           </div>
-          <img 
+          <Image 
             src="https://farther.social/images/farther-logo.png" 
             alt="Farther Logo" 
             width={100} 

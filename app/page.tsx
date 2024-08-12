@@ -1,43 +1,35 @@
 import React from 'react';
 import { fetchMetadata } from "frames.js/next";
-import Image from 'next/image';
-import { Metadata } from 'next';
+import Head from 'next/head';
 
-const baseUrl = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}` 
-  : 'http://localhost:3000';
-
-export async function generateMetadata(): Promise<Metadata> {
-  const frameMetadata = await fetchMetadata(new URL("/frames", baseUrl));
-
+export async function generateMetadata() {
   return {
-    title: "Farther Allowance Tracker by GG Frames",
-    description: "Track your Farther allowance with this Frame",
-    openGraph: {
-      title: "Farther Allowance Tracker",
-      description: "Track your Farther allowance with this Frame",
-      images: [`${baseUrl}/farther.png`],
-    },
-    other: {
-      ...Object.fromEntries(Object.entries(frameMetadata).filter(([_, v]) => v != null)),
-      "fc:frame": "vNext",
-      "fc:frame:image": `${baseUrl}/farther.png`,
-      "og:image": `${baseUrl}/farther.png`,
-    },
+    title: "My Page",
+    // provide a full URL to your /frames endpoint
+    other: await fetchMetadata(
+      new URL(
+        "/frames",
+        process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : "http://localhost:3000"
+      )
+    ),
   };
 }
 
 export default function Page() {
   return (
-    <div>
-      <h1>Farther Allowance Tracker</h1>
-      <p>This is a Farcaster Frame for tracking Farther allowance.</p>
-      <Image
-        width={1200}
-        height={630}
-        src="/farther.png"
-        alt="Farther Allowance Tracker"
-      />
-    </div>
+    <>
+      <Head>
+        <title>My Page</title>
+        <meta name="description" content="This is a Farcaster Frame for tracking Farther allowance." />
+        <meta property="og:title" content="Farther Allowance Tracker" />
+        <meta property="og:image" content="/static/images/farther.png" />
+      </Head>
+      <div>
+        <h1>Farther Allowance Tracker</h1>
+        <p>This is a Farcaster Frame for tracking Farther allowance.</p>
+      </div>
+    </>
   );
 }

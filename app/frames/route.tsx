@@ -35,7 +35,7 @@ const handleRequest = frames(async (ctx) => {
         height: '100%'
       }}>
         <img
-          src="http://localhost:3000/farther.png"
+          src={`https://${process.env.VERCEL_URL || 'localhost:3000'}/farther.png`}
           alt="Farther"
           width="300"
           height="300"
@@ -44,7 +44,7 @@ const handleRequest = frames(async (ctx) => {
     ),
     
         buttons: [
-      <Button action="post" target='/frames/route1'>
+      <Button action="post" target='frames/route1'>
         My Stats
       </Button>,
       <Button action="post" target='/route2'>

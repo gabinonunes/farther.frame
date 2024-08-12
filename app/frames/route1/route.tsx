@@ -24,8 +24,8 @@ const frames = createFrames({
 
 const handleRequest = frames(async (ctx) => {
   const { message } = ctx;
-  const fid = message.requesterFid;
-  const verified = message.isValid;
+  const fid = message?.requesterFid;
+  const verified = message?.isValid;
   
   console.log('Context:', ctx);
   console.log('FID:', fid);

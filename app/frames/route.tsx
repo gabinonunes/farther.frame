@@ -35,7 +35,7 @@ const handleRequest = frames(async (ctx) => {
         height: '100%'
       }}>
         <img
-          src='/farther.png'
+          src='https://farther.social/_next/image?url=%2Fimages%2Flanding-page-placeholder.png&w=3840&q=75'
           alt="Farther"
           width="300"
           height="300"

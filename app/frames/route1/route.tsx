@@ -118,22 +118,20 @@ const handleRequest = frames(async (ctx) => {
   const allowance = currentCycle.allowance || 'N/A';
   const used = currentCycle.givenAmount || 'N/A';
   const remaining = currentCycle.remainingAllowance || 'N/A';
-  const given = currentCycle.givenAmount || 'N/A';
   const received = currentCycle.receivedAmount || 'N/A';
 
   return {
     image: (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#232739', padding: '10px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: 'black', padding: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '50px' }}>
           <img 
             src={pfpUrl || defaultPfpUrl} 
             alt="Profile Picture" 
-            width={100} 
-            height={100} 
+            width={150} 
+            height={150} 
             style={{ 
               borderRadius: '30%', 
-              marginLeft: '20px',
-              marginTop: '20px',
+              marginLeft: '50px',
             }} 
           />
           <div
@@ -145,20 +143,25 @@ const handleRequest = frames(async (ctx) => {
               flex: 1,
               color: 'white',
               fontSize: '30px',
+              padding: '20px',
+              margin: '0 30px',
+              border: '2px solid #ffd05d',
+              borderRadius: '10px',
+              textAlign: 'center',
             }}
           >
-            <h2 style={{ fontSize: '36px', marginBottom: '10px' }}>
-              {displayName || 'Unknown User'} | <p style={{ margin: '0px 0' }}>FID: {fid || 'N/A'}</p>
+            <h2 style={{ fontSize: '36px', marginBottom: '10px', margin: '0' }}>
+              {displayName || 'Unknown User'} | FID: {fid || 'N/A'}
             </h2>
-            <p style={{ margin: '0px 0' }}>Rank: {rank} ⭐ Tipper Score: {tipperScore !== undefined ? Number(tipperScore).toFixed(2) : 'N/A'}</p>
-            <p style={{ margin: '0px 0' }}>Eligible Tippers: {eligibleTippers} ⭐ Tip Minimum: {tipMinimum}✨</p>
+            <p style={{ margin: '10px 0' }}>Rank: {rank} ⭐ Tipper Score: {tipperScore !== undefined ? Number(tipperScore).toFixed(2) : 'N/A'}</p>
+            <p style={{ margin: '10px 0' }}>Eligible Tippers: {eligibleTippers} ⭐ Tip Minimum: {tipMinimum}✨</p>
           </div>
           <img 
-            src="https://farther.social/images/farther-logo.png" 
+            src="https://uc6b2af5c5cd7ae0b3b51f8892aa.previews.dropboxusercontent.com/p/thumb/ACVJRCJ1nWURNC6t9APx74Iv2u8XuhOThmptU6aQ-4czZn7ibigjopB2Y3aIZYt8Y1l5ZIwD5lxL5eZEtXioqTpbQLcKMe5wh9KDY7UcJZhNfv1G3PTnmvQgAKA5Hao9DOE5HT_hcQpEIAsBZXr4UpdPYO8Cp8s5skKyc9oDJALxFCR-7KlnHU-LfQ-ulNqf77v6v-1KaxToNjgupekNxPYGLm-Fs-WhOn_84m862p_-gpX3LK80P41tS8FNHAE2WfHxZQQLLSZ83EvaYoYXmBoHPXPTG2Hc2f6ojCnQOE673JIehajvSslJUMa3vA5Bqa98JpBvGSC8wNyOU7dB1gW9/p.png" 
             alt="Farther Logo" 
-            width={100} 
-            height={100} 
-            style={{ borderRadius: '50%', marginRight: '20px', marginTop: '20px', }} 
+            width={150} 
+            height={150} 
+            style={{ borderRadius: '50%', marginRight: '50px' }} 
           />
         </div>
         <div
@@ -167,21 +170,20 @@ const handleRequest = frames(async (ctx) => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            flex: 1,
             color: 'white',
             fontSize: '30px',
-            marginTop: '20px',
+            padding: '20px',
+            margin: '30px 50px',
+            border: '2px solid #ffd05d',
+            borderRadius: '10px',
+            textAlign: 'center',
           }}
         >
-          <h3 style={{ fontSize: '36px', }}>Allowance: {allowance}</h3>
-          <div style={{ marginLeft: '70px', marginRight: '70px', display: 'flex', justifyContent: 'space-between', width: '80%' }}>
-            <p>Used: {used}</p>
-            <p>Remaining: {remaining}</p>
-          </div>
-          
-          <div style={{ marginLeft: '70px', marginRight: '70px', display: 'flex', justifyContent: 'space-between', width: '80%' }}>
-            <p>Given: {given}</p>
-            <p>Received: {received}</p>
+          <h3 style={{ fontSize: '36px', margin: '0 0 10px 0' }}>Allowance: {allowance}</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <p style={{ margin: '10px 0' }}>Used: {used}</p>
+            <p style={{ margin: '10px 0' }}>Remaining: {remaining}</p>
+            <p style={{ margin: '10px 0' }}>Received: {received}</p>
           </div>
         </div>
         <div style={{
@@ -200,7 +202,13 @@ const handleRequest = frames(async (ctx) => {
     ),
     buttons: [
       <Button key="stats" action="post" target="/frames/route1">My Stats</Button>,
-      <Button key="share" action="post" target="/frames/route2">Share</Button>,
+      <Button 
+        key="share" 
+        action="post_redirect" 
+        target="https://warpcast.com/~/compose?text=Check%20out%20my%20Farther%20stats!%20%0A%0Ahttps%3A%2F%2Fyour-frame-url.com"
+      >
+        Share
+      </Button>,
     ],
   };
 });

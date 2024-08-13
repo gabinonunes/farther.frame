@@ -3,6 +3,7 @@ import { createFrames, Button } from "frames.js/next";
 import { frames as framesConfig } from "./frames";
 import { fetchMetadata } from "frames.js/next";
 import { farcasterHubContext } from "frames.js/middleware";
+import Image from 'next/image';
 
 const frames = createFrames({
     middleware: [
@@ -24,6 +25,8 @@ const frames = createFrames({
   });
 
 const handleRequest = frames(async (ctx) => {
+  const metadata = await fetchMetadata(`${process.env.NEXT_PUBLIC_HOST}/frames`);
+  
   return {
     image: (
       <div style={{
@@ -44,13 +47,14 @@ const handleRequest = frames(async (ctx) => {
     ),
     
         buttons: [
-      <Button action="post" target='frames/route1'>
+      <Button action="post" target='/frames/route1'>
         My Stats
       </Button>,
       <Button action="post" target='/route2'>
         Share
       </Button>,
     ],
+    metadata,
   };
 });
 

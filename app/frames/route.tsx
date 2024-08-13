@@ -35,7 +35,7 @@ const handleRequest = frames(async (ctx) => {
         height: '100%'
       }}>
         <img
-          src={`https://${process.env.VERCEL_URL || 'localhost:3000'}/farther.png`}
+          src='/farther.png'
           alt="Farther"
           width="300"
           height="300"

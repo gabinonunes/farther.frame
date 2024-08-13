@@ -3,7 +3,6 @@ import { createFrames, Button } from "frames.js/next";
 import { frames as framesConfig } from "./frames";
 import { fetchMetadata } from "frames.js/next";
 import { farcasterHubContext } from "frames.js/middleware";
-import Image from 'next/image';
 
 const frames = createFrames({
     middleware: [
@@ -25,8 +24,6 @@ const frames = createFrames({
   });
 
 const handleRequest = frames(async (ctx) => {
-  const metadata = await fetchMetadata(`${process.env.NEXT_PUBLIC_HOST}/frames`);
-  
   return {
     image: (
       <div style={{
@@ -38,7 +35,7 @@ const handleRequest = frames(async (ctx) => {
         height: '100%'
       }}>
         <img
-          src='https://farther.social/_next/image?url=%2Fimages%2Flanding-page-placeholder.png&w=3840&q=75'
+          src={`https://${process.env.VERCEL_URL || 'localhost:3000'}/farther.png`}
           alt="Farther"
           width="300"
           height="300"
@@ -54,7 +51,6 @@ const handleRequest = frames(async (ctx) => {
         Share
       </Button>,
     ],
-    metadata,
   };
 });
 

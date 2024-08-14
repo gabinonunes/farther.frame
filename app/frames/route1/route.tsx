@@ -37,7 +37,7 @@ const handleRequest = frames(async (ctx) => {
     console.log('No FID available');
     return {
       image: (
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#232739', padding: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#3f48cc', padding: '10px' }}>
           <h2>No user data available</h2>
           <p>Please try again or check your connection.</p>
         </div>
@@ -120,9 +120,11 @@ const handleRequest = frames(async (ctx) => {
   const remaining = currentCycle.remainingAllowance || 'N/A';
   const received = currentCycle.receivedAmount || 'N/A';
 
+  const VALUE_COLOR = '#ffd05d';
+
   return {
     image: (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: 'black', padding: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#121872', padding: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '50px' }}>
           <img 
             src={pfpUrl || defaultPfpUrl} 
@@ -145,19 +147,23 @@ const handleRequest = frames(async (ctx) => {
               fontSize: '30px',
               padding: '20px',
               margin: '0 30px',
-              border: '2px solid #ffd05d',
+              border: `2px solid ${VALUE_COLOR}`,
               borderRadius: '10px',
               textAlign: 'center',
             }}
           >
             <h2 style={{ fontSize: '36px', marginBottom: '10px', margin: '0' }}>
-              {displayName || 'Unknown User'} | FID: {fid || 'N/A'}
+              {displayName || 'Unknown User'} 
             </h2>
-            <p style={{ margin: '10px 0' }}>Rank: {rank} ⭐ Tipper Score: {tipperScore !== undefined ? Number(tipperScore).toFixed(2) : 'N/A'}</p>
-            <p style={{ margin: '10px 0' }}>Eligible Tippers: {eligibleTippers} ⭐ Tip Minimum: {tipMinimum}✨</p>
+            <p style={{ margin: '10px 0' }}>
+              Rank {' '}<span style={{ color: VALUE_COLOR }}>{rank}</span> ⭐ Tipper Score {' '}<span style={{ color: VALUE_COLOR }}>{tipperScore !== undefined ? Number(tipperScore).toFixed(2) : 'N/A'}</span>
+            </p>
+            <p style={{ margin: '10px 0' }}>
+              Eligible Tippers {' '}<span style={{ color: VALUE_COLOR }}>{eligibleTippers}</span> ⭐ Tip Minimum {' '}<span style={{ color: VALUE_COLOR }}>{tipMinimum}</span>✨
+            </p>
           </div>
           <img 
-            src="https://uc6b2af5c5cd7ae0b3b51f8892aa.previews.dropboxusercontent.com/p/thumb/ACVJRCJ1nWURNC6t9APx74Iv2u8XuhOThmptU6aQ-4czZn7ibigjopB2Y3aIZYt8Y1l5ZIwD5lxL5eZEtXioqTpbQLcKMe5wh9KDY7UcJZhNfv1G3PTnmvQgAKA5Hao9DOE5HT_hcQpEIAsBZXr4UpdPYO8Cp8s5skKyc9oDJALxFCR-7KlnHU-LfQ-ulNqf77v6v-1KaxToNjgupekNxPYGLm-Fs-WhOn_84m862p_-gpX3LK80P41tS8FNHAE2WfHxZQQLLSZ83EvaYoYXmBoHPXPTG2Hc2f6ojCnQOE673JIehajvSslJUMa3vA5Bqa98JpBvGSC8wNyOU7dB1gW9/p.png" 
+            src="https://uc9ba1bc4c0d397bff6ccf001827.previews.dropboxusercontent.com/p/thumb/ACXx-fe0M9OrOEbf-YPADF-RYGBFCZM61nK-lPUzBDGWIyRMSFSKXAllX2AeL9JYRUHhSoDGiZe6KeiaIiKYtr2ymt70nJ-9B8wyt1v-rdsr-yxNzfh_rcq33lL0oIk1eDDRvUSK3XL4J4yCFIzjHMc9Glm40WfGRIcD55doRXqXd7MZ4JYatZe7DYwrSr2btYmSIlJxekVy7q1cv6KqY76w7cy7oUtZctROg_d3LcXeXyw9SQ0_S5FaXkXL7SzIXAQz2VlDNJdG_G6k16i8f1TusbJnrkN-AXiKaKogZSa5DQAUmX_q9DGXKAsK2ozwpZ3gXnGs8Jf4RRgLCsRfznbb/p.png" 
             alt="Farther Logo" 
             width={150} 
             height={150} 
@@ -174,16 +180,42 @@ const handleRequest = frames(async (ctx) => {
             fontSize: '30px',
             padding: '20px',
             margin: '30px 50px',
-            border: '2px solid #ffd05d',
+            border: `2px solid ${VALUE_COLOR}`,
             borderRadius: '10px',
             textAlign: 'center',
           }}
         >
-          <h3 style={{ fontSize: '36px', margin: '0 0 10px 0' }}>Allowance: {allowance}</h3>
+          <h2 style={{ fontSize: '40px', margin: '0 0 20px 0' }}>Current Cycle</h2>
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <p style={{ margin: '10px 0' }}>Used: {used}</p>
-            <p style={{ margin: '10px 0' }}>Remaining: {remaining}</p>
-            <p style={{ margin: '10px 0' }}>Received: {received}</p>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              width: '33%',
+              borderRight: `2px solid ${VALUE_COLOR}`
+            }}>
+              <h3 style={{ fontSize: '34px', margin: '0 0 5px 0' }}>Allowance</h3>
+              <p style={{ fontSize: '50px', margin: '0', color: VALUE_COLOR }}>{allowance}</p>
+            </div>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              width: '33%',
+              borderRight: `2px solid ${VALUE_COLOR}`
+            }}>
+              <h3 style={{ fontSize: '34px', margin: '0 0 5px 0' }}>Remaining</h3>
+              <p style={{ fontSize: '50px', margin: '0', color: VALUE_COLOR }}>{remaining}</p>
+            </div>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              width: '33%'
+            }}>
+              <h3 style={{ fontSize: '34px', margin: '0 0 5px 0' }}>Received</h3>
+              <p style={{ fontSize: '50px', margin: '0', color: VALUE_COLOR }}>{received}</p>
+            </div>
           </div>
         </div>
         <div style={{
